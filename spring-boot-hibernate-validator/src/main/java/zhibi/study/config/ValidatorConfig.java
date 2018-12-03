@@ -1,12 +1,17 @@
 package zhibi.study.config;
 
+import org.hibernate.validator.HibernateValidator;
+import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
+import org.hibernate.validator.resourceloading.AggregateResourceBundleLocator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+import javax.validation.Validation;
 import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import java.util.Arrays;
 
 /**
  * @author Dream笔
@@ -15,14 +20,18 @@ import javax.validation.Validator;
 @Configuration
 public class ValidatorConfig {
 
-
     @Autowired
     private MessageSource messageSource;
 
+
     @Bean
     public Validator getValidator() {
-        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
-        validator.setValidationMessageSource(messageSource);
-        return validator;
+        ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class)
+                .configure()
+                .failFast(true)
+                .messageInterpolator(new ResourceBundleMessageInterpolator(
+                        new AggregateResourceBundleLocator(Arrays.asList("i18n/error"))))
+                .buildValidatorFactory();
+        return validatorFactory.getValidator();
     }
 }
