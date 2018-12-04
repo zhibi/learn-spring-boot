@@ -27,8 +27,7 @@ public class ValidatorConfig {
     public Validator getValidator() {
         ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class)
                 .configure()
-                //.failFast(true)
-
+                .failFast(true)
                 /*
                 一个配置文件的时候
                  */
@@ -41,6 +40,7 @@ public class ValidatorConfig {
                 /* .messageInterpolator(new ResourceBundleMessageInterpolator(
                          new AggregateResourceBundleLocator(Arrays.asList("i18n/error","i18n/message"))))*/
                 .buildValidatorFactory();
+
         return validatorFactory.getValidator();
     }
 
