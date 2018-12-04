@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 /**
@@ -23,12 +24,38 @@ import java.util.List;
 @Slf4j
 public class GlobalExceptionHandler {
 
+
+    /**
+     * 对象校验异常处理
+     * @param request
+     * @param e
+     * @param response
+     * @return
+     */
     @ExceptionHandler(value = BindException.class)
     @ResponseBody
-    public Object logicExceptionHandler(HttpServletRequest request, BindException e, HttpServletResponse response) {
+    public Object bindExceptionHandler(HttpServletRequest request, BindException e, HttpServletResponse response) {
         StringBuilder builder = new StringBuilder();
         List<ObjectError> allErrors = e.getAllErrors();
         allErrors.forEach(error -> builder.append(error.getDefaultMessage()));
+
+        return builder.toString();
+    }
+
+    /**
+     * 参数校验异常处理
+     * @param request
+     * @param e
+     * @param response
+     * @return
+     */
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    @ResponseBody
+    public Object constraintViolationExceptionHandler(HttpServletRequest request, ConstraintViolationException e, HttpServletResponse response) {
+        StringBuilder builder = new StringBuilder();
+        e.getConstraintViolations().forEach(item -> {
+            builder.append(item.getMessage());
+        });
 
         return builder.toString();
     }
