@@ -40,7 +40,6 @@ public class ValidatorConfig {
                 /* .messageInterpolator(new ResourceBundleMessageInterpolator(
                          new AggregateResourceBundleLocator(Arrays.asList("i18n/error","i18n/message"))))*/
                 .buildValidatorFactory();
-
         return validatorFactory.getValidator();
     }
 
