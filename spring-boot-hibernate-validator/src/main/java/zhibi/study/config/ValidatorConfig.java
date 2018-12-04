@@ -27,7 +27,7 @@ public class ValidatorConfig {
     public Validator getValidator() {
         ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class)
                 .configure()
-                .failFast(true)
+                //.failFast(true)
 
                 /*
                 一个配置文件的时候
