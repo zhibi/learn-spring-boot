@@ -21,4 +21,14 @@ public class RedisCacheServiceTest {
     public void selectList() {
         System.out.println(redisCacheService.selectList(2));
     }
+
+    @Test
+    public void updateList() {
+        System.out.println(redisCacheService.updateList(2));
+    }
+
+    @Test
+    public void del() {
+        redisCacheService.del(2);
+    }
 }
