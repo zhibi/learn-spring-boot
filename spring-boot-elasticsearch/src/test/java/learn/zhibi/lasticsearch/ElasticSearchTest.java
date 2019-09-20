@@ -26,4 +26,9 @@ public class ElasticSearchTest {
         assertTrue(elasticsearchTemplate.createIndex(User.class));
         // elasticsearchTemplate.putMapping()
     }
+
+    @Test
+    public void testCreateMapping(){
+        assertTrue(elasticsearchTemplate.putMapping(User.class));
+    }
 }
