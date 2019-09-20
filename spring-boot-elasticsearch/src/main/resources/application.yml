@@ -1,0 +1,6 @@
+spring:
+  data:
+    elasticsearch:
+      ## 要与ElasticSearch的配置文件属性值要相同  cluster.name: elastic
+      cluster-name: elastic
+      cluster-nodes: "10.0.75.1:9300"
